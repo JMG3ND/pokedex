@@ -9,9 +9,6 @@ const backHome = () => router.push('/home');
     <header class="top-navegation-bar">
         <img @click="backHome" class="top-navegation-bar__logo" src="./image/pokedex-ico.png" alt="logo de pokedex">
         <h1 class="top-navegation-bar__title">Pokedex</h1>
-        <nav class="top-navegation-bar__nav">
-            <RouterLink class="top-navegation-bar__link" to="/home">Home</RouterLink>
-        </nav>
     </header>
 </template>
 
