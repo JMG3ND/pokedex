@@ -2,7 +2,7 @@
 import { RouterLink, useRouter } from 'vue-router';
 
 const router = useRouter()
-const backHome = () => router.push('/home');
+const backHome = () => router.push('/');
 </script>
 
 <template>

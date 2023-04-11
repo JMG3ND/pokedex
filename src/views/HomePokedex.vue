@@ -31,9 +31,9 @@ getData();
 <template>
     <div class="colocador">
         <div class="button-group">
-            <button @click="previewPage" class="button-group__button"> <img src="../components/image/chevron-left-solid.svg"
+            <button :disabled="position<=0" @click="previewPage" class="button-group__button"> <img src="../components/image/chevron-left-solid.svg"
                     alt=""> </button>
-            <button @click="nextPage" class="button-group__button"> <img src="../components/image/chevron-right-solid.svg"
+            <button :disabled="position>=1199" @click="nextPage" class="button-group__button"> <img src="../components/image/chevron-right-solid.svg"
                     alt=""> </button>
         </div>
         <div class="poke-list">
@@ -73,6 +73,11 @@ getData();
         list-style-type: none;
         border-radius: 10px;
     }
+
+    &::-webkit-scrollbar{
+        background-color: $colorB;
+        border-radius: 5px;
+    }
 }
 
 //Función que crea un @media para cada 96px que salte en resolución
@@ -94,7 +99,7 @@ getData();
     justify-content: space-between;
     position: absolute;
     top: -50px;
-    right: 0;
+    right: 10px;
 
     &__button {
         margin-left: 20px;
