@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 import LoadSpinner from './LoadSpinner.vue';
 import { useGetData } from '../composables/getData';
-import { useGetTypeImage } from '../composables/getImageType'
 
 const props = defineProps(['name', 'urlPokemon'])
 const { data, getData } = useGetData();
