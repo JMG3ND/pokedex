@@ -1,45 +1,24 @@
 <script setup>
 import PokemonCard from '../components/PokemonCard.vue'
-import { ref } from 'vue';
-import axios, { formToJSON } from 'axios';
+import { useGetData } from '../composables/getData';
 
-const dataPokemons = ref([]);
-let position = 0;
-const limit = 80;
+const { data, getData, loadData } = useGetData();
 
-const nextPage = () => {
-    position += 80;
-    getData();
-};
-const previewPage = () => {
-    position -= 80;
-    getData();
-};
-
-const getData = async () => {
-    try {
-        const { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${position}&limit=${limit}`)
-        dataPokemons.value = data.results;
-    } catch (error) {
-        console.log(error)
-    }
-};
-
-getData();
+getData('https://pokeapi.co/api/v2/pokemon?offset=0&limit=80')
 </script>
 
 <template>
-    <div class="colocador">
+    <div v-if="!loadData" class="colocador">
         <div class="button-group">
-            <button :disabled="position<=0" @click="previewPage" class="button-group__button"> <img src="../components/image/chevron-left-solid.svg"
+            <button :disabled="!data.previous" @click="getData(data.previous)" class="button-group__button"> <img src="../components/image/chevron-left-solid.svg"
                     alt=""> </button>
-            <button :disabled="position>=1199" @click="nextPage" class="button-group__button"> <img src="../components/image/chevron-right-solid.svg"
+            <button :disabled="!data.next" @click="getData(data.next)" class="button-group__button"> <img src="../components/image/chevron-right-solid.svg"
                     alt=""> </button>
         </div>
         <div class="poke-list">
             <div class="poke-list__separator-container">
                 <ul class="poke-list__container">
-                    <li class="poke-list__item" v-for="pokemon in dataPokemons">
+                    <li class="poke-list__item" v-for="pokemon in data.results">
                         <PokemonCard :key="pokemon.name" :name="pokemon.name" :urlPokemon="pokemon.url">
                         </PokemonCard>
                     </li>
@@ -83,7 +62,6 @@ getData();
 //Función que crea un @media para cada 96px que salte en resolución
 @for $i from 1 through 10 {
     $res: 96px * $i;
-
     @media screen and (min-width: $res) {
         .poke-list {
             &__container {

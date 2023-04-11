@@ -1,37 +1,19 @@
 <script setup>
-import axios from 'axios';
 import { ref } from 'vue';
 import LoadSpinner from './LoadSpinner.vue';
+import { useGetData } from '../composables/getData';
+import { useGetTypeImage } from '../composables/getImageType'
 
 const props = defineProps(['name', 'urlPokemon'])
+const { data, getData } = useGetData();
 
-//variables reactivas para los tipos del pokemon
-const typePokemon = ref([]);
+getData(props.urlPokemon);
 
 //variable que define si la imagen está cargando
 const loadImage = ref(true);
-const cargando = () => {
-    loadImage.value = false;
-}
-
-// Consultar la API para obtener la imágen del pokemon
-const urlImage = ref('');
-const getData = async () => {
-    try {
-        const { data } = await axios.get(props.urlPokemon);
-        urlImage.value = data.sprites.front_default;
-        idPokemon.value = data.id;
-        data.types.forEach(element => {
-            typePokemon.value.push(element.type.name)
-        });
-    } catch (error) {
-        console.log(error)
-    }
-}
-getData();
+const cargando = () => loadImage.value = false
 
 //Mostrar ocultar la card del pokemon
-const idPokemon = ref(0);
 let showPokemon = ref(false);
 const mostrarPokemon = () => showPokemon.value = true;
 const ocultarPokemon = () => showPokemon.value = false;
@@ -40,45 +22,62 @@ const ocultarPokemon = () => showPokemon.value = false;
 
 <template>
     <LoadSpinner v-if="loadImage"></LoadSpinner>
-    <img @click="mostrarPokemon()" @load="cargando()" class="pokemon-card" :class="loadImage ? 'pokemon-card--load' : ''"
-        :src="urlImage" :alt="name">
-    <div @click="ocultarPokemon" class="show-pokemon" :class="showPokemon ? 'show-pokemon--show' : ''">
-        <div class="show-pokemon__card">
-            <header class="show-pokemon__header">
-                <h2 class="show-pokemon__title">N. {{ idPokemon }} / {{ name.toUpperCase() }}</h2>
-            </header>
-            <article class="show-pokemon__article">
-                <div class="show-pokemon__aling">
-                    <img class="show-pokemon__image" :src="urlImage" :alt="name">
-                    <div class="show-pokemon__type-group">
-                        <template v-for="types in typePokemon">
-                            <img class="show-pokemon__type" v-if="types === 'bug'" src="./image/bug.png" :alt="types">
-                            <img class="show-pokemon__type" v-if="types === 'dark'" src="./image/dark.png" :alt="types">
-                            <img class="show-pokemon__type" v-if="types === 'dragon'" src="./image/dragon.png" :alt="types">
-                            <img class="show-pokemon__type" v-if="types === 'electric'" src="./image/electric.png"
-                                :alt="types">
-                            <img class="show-pokemon__type" v-if="types === 'fairy'" src="./image/fairy.png" :alt="types">
-                            <img class="show-pokemon__type" v-if="types === 'fighting'" src="./image/fighting.png"
-                                :alt="types">
-                            <img class="show-pokemon__type" v-if="types === 'fire'" src="./image/fire.png" :alt="types">
-                            <img class="show-pokemon__type" v-if="types === 'flying'" src="./image/flying.png" :alt="types">
-                            <img class="show-pokemon__type" v-if="types === 'ghost'" src="./image/ghost.png" :alt="types">
-                            <img class="show-pokemon__type" v-if="types === 'grass'" src="./image/grass.png" :alt="types">
-                            <img class="show-pokemon__type" v-if="types === 'ground'" src="./image/ground.png" :alt="types">
-                            <img class="show-pokemon__type" v-if="types === 'ice'" src="./image/ice.png" :alt="types">
-                            <img class="show-pokemon__type" v-if="types === 'water'" src="./image/water.png" :alt="types">
-                            <img class="show-pokemon__type" v-if="types === 'steel'" src="./image/steel.png" :alt="types">
-                            <img class="show-pokemon__type" v-if="types === 'psychic'" src="./image/psychic.png"
-                                :alt="types">
-                            <img class="show-pokemon__type" v-if="types === 'normal'" src="./image/normal.png" :alt="types">
-                            <img class="show-pokemon__type" v-if="types === 'rock'" src="./image/rock.png" :alt="types">
-                            <img class="show-pokemon__type" v-if="types === 'poison'" src="./image/poison.png" :alt="types">
-                        </template>
+    <template v-if="data">
+        <img @click="mostrarPokemon()" @load="cargando()" class="pokemon-card"
+            :class="loadImage ? 'pokemon-card--load' : ''" :src="data.sprites.front_default" :alt="data.name">
+        <div @click="ocultarPokemon" class="show-pokemon" :class="showPokemon ? 'show-pokemon--show' : ''">
+            <div class="show-pokemon__card">
+                <header class="show-pokemon__header">
+                    <h2 class="show-pokemon__title">N. {{ data.id }} / {{ data.name.toUpperCase() }}</h2>
+                </header>
+                <article class="show-pokemon__article">
+                    <div class="show-pokemon__aling">
+                        <img class="show-pokemon__image" :src="data.sprites.front_default" :alt="data.name">
+                        <div class="show-pokemon__type-group">
+                            <template v-for="types in data.types">
+                                <img class="show-pokemon__type" v-if="types.type.name === 'bug'" src="../assets/types/bug.png"
+                                    :alt="types.type.name">
+                                <img class="show-pokemon__type" v-if="types.type.name === 'dark'" src="../assets/types/dark.png"
+                                    :alt="types.type.name">
+                                <img class="show-pokemon__type" v-if="types.type.name === 'dragon'" src="../assets/types/dragon.png"
+                                    :alt="types.type.name">
+                                <img class="show-pokemon__type" v-if="types.type.name === 'electric'" src="../assets/types/electric.png"
+                                    :alt="types.type.name">
+                                <img class="show-pokemon__type" v-if="types.type.name === 'fairy'" src="../assets/types/fairy.png"
+                                    :alt="types.type.name">
+                                <img class="show-pokemon__type" v-if="types.type.name === 'fighting'" src="../assets/types/fighting.png"
+                                    :alt="types.type.name">
+                                <img class="show-pokemon__type" v-if="types.type.name === 'fire'" src="../assets/types/fire.png"
+                                    :alt="types.type.name">
+                                <img class="show-pokemon__type" v-if="types.type.name === 'flying'" src="../assets/types/flying.png"
+                                    :alt="types.type.name">
+                                <img class="show-pokemon__type" v-if="types.type.name === 'ghost'" src="../assets/types/ghost.png"
+                                    :alt="types.type.name">
+                                <img class="show-pokemon__type" v-if="types.type.name === 'grass'" src="../assets/types/grass.png"
+                                    :alt="types.type.name">
+                                <img class="show-pokemon__type" v-if="types.type.name === 'ground'" src="../assets/types/ground.png"
+                                    :alt="types.type.name">
+                                <img class="show-pokemon__type" v-if="types.type.name === 'ice'" src="../assets/types/ice.png"
+                                    :alt="types.type.name">
+                                <img class="show-pokemon__type" v-if="types.type.name === 'water'" src="../assets/types/water.png"
+                                    :alt="types.type.name">
+                                <img class="show-pokemon__type" v-if="types.type.name === 'steel'" src="../assets/types/steel.png"
+                                    :alt="types.type.name">
+                                <img class="show-pokemon__type" v-if="types.type.name === 'psychic'" src="../assets/types/psychic.png"
+                                    :alt="types.type.name">
+                                <img class="show-pokemon__type" v-if="types.type.name === 'normal'" src="../assets/types/normal.png"
+                                    :alt="types.type.name">
+                                <img class="show-pokemon__type" v-if="types.type.name === 'rock'" src="../assets/types/rock.png"
+                                    :alt="types.type.name">
+                                <img class="show-pokemon__type" v-if="types.type.name === 'poison'" src="../assets/types/poison.png"
+                                    :alt="types.type.name">
+                            </template>
+                        </div>
                     </div>
-                </div>
-            </article>
+                </article>
+            </div>
         </div>
-    </div>
+    </template>
 </template>
 
 <style lang="scss">
@@ -242,5 +241,4 @@ const ocultarPokemon = () => showPokemon.value = false;
             height: 90%;
         }
     }
-}
-</style>
+}</style>
