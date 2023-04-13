@@ -2,13 +2,13 @@
 import PokemonCard from '../components/PokemonCard.vue'
 import { useGetData } from '../composables/getData';
 
-const { data, getData, loadData } = useGetData();
+const { data, getData } = useGetData();
 
 getData('https://pokeapi.co/api/v2/pokemon?offset=0&limit=80')
 </script>
 
 <template>
-    <div v-if="!loadData" class="colocador">
+    <div v-if="data" class="colocador">
         <div class="button-group">
             <button :disabled="!data.previous" @click="getData(data.previous)" class="button-group__button"> <img src="../components/image/chevron-left-solid.svg"
                     alt=""> </button>
