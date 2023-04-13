@@ -34,7 +34,7 @@ const ocultarPokemon = () => showPokemon.value = false;
                         <img class="show-pokemon__image" :src="data.sprites.front_default" :alt="data.name">
                         <div class="show-pokemon__type-group">
                             <template v-for="types in data.types">
-                                <img class="show-pokemon__type" v-if="types.type.name === 'bug'" src="../assets/types/bug.png"
+                                <img class="show-pokemon__type" v-if="types.type.name === 'bug'" src="@/assets/types/bug.png"
                                     :alt="types.type.name">
                                 <img class="show-pokemon__type" v-if="types.type.name === 'dark'" src="../assets/types/dark.png"
                                     :alt="types.type.name">
