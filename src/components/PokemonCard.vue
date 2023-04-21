@@ -17,7 +17,7 @@ let showPokemon = ref(false);
 const mostrarPokemon = () => showPokemon.value = true;
 const ocultarPokemon = () => showPokemon.value = false;
 
-const getUrlType = () => type => `../assets/types/${type}.png`
+const getUrlType = (type) => `../assets/types/${type}.png`
 
 </script>
 
@@ -37,7 +37,7 @@ const getUrlType = () => type => `../assets/types/${type}.png`
                         <div class="show-pokemon__type-group">
                             <template v-for="types in data.types">
                                 <img class="show-pokemon__type" v-if="types.type.name === 'bug'"
-                                    :src="getUrlType(types.type.name)" :alt="types.type.name">
+                                    src="../assets/types/bug.png" :alt="types.type.name">
                                 <img class="show-pokemon__type" v-if="types.type.name === 'dark'"
                                     src="../assets/types/dark.png" :alt="types.type.name">
                                 <img class="show-pokemon__type" v-if="types.type.name === 'dragon'"
