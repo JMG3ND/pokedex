@@ -6,11 +6,9 @@
 </template>
 
 <script setup>
+import LoadDataApp from './components/LoadDataApp.vue';
 import PokedexBox from './components/PokedexBox.vue';
 import TopNavegationBar from './components/TopNavegationBar.vue';
-import { useStoreTier } from './store/TierPokemmo';
-const storetier = useStoreTier();
-storetier.getAllPokemos() //Obtiene la lista de todos los pokemones hasta la 5ta generación para pokemmo
 
 </script>
 
