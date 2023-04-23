@@ -5,7 +5,6 @@ import { useGetData } from '../composables/getData';
 const { data, getData } = useGetData();
 
 getData('https://pokeapi.co/api/v2/pokemon?offset=0&limit=80');
-//getDataOU('https://pokeapi.co/api/v2/pokemon?offset=0&limit=637');
 </script>
 
 <template>
