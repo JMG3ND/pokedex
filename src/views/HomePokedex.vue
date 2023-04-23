@@ -1,11 +1,11 @@
 <script setup>
-import PokemonCard from '../components/PokemonCard.vue'
+import PokemonCard from '../components/PokemonCard.vue';
 import { useGetData } from '../composables/getData';
 
-const { data, getData, getDataOU } = useGetData();
+const { data, getData } = useGetData();
 
 getData('https://pokeapi.co/api/v2/pokemon?offset=0&limit=80');
-//getDataOU('https://pokeapi.co/api/v2/pokemon?offset=0&limit=644');
+//getDataOU('https://pokeapi.co/api/v2/pokemon?offset=0&limit=637');
 </script>
 
 <template>
