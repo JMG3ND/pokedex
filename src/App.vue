@@ -1,12 +1,12 @@
 <template>
 	<div class="justify-content">
 		<TopNavegationBar />
-		<RouterView />
+		<PokedexBox />
 	</div>
 </template>
 
 <script setup>
-import { RouterView } from 'vue-router';
+import PokedexBox from './components/PokedexBox.vue';
 import TopNavegationBar from './components/TopNavegationBar.vue';
 import { useStoreTier } from './store/TierPokemmo';
 const storetier = useStoreTier();
