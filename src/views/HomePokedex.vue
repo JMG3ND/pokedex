@@ -2,18 +2,19 @@
 import PokemonCard from '../components/PokemonCard.vue'
 import { useGetData } from '../composables/getData';
 
-const { data, getData } = useGetData();
+const { data, getData, getDataOU } = useGetData();
 
-getData('https://pokeapi.co/api/v2/pokemon?offset=0&limit=80')
+getData('https://pokeapi.co/api/v2/pokemon?offset=0&limit=80');
+//getDataOU('https://pokeapi.co/api/v2/pokemon?offset=0&limit=644');
 </script>
 
 <template>
     <div v-if="data" class="colocador">
         <div class="button-group">
-            <button :disabled="!data.previous" @click="getData(data.previous)" class="button-group__button"> <img src="../components/image/chevron-left-solid.svg"
-                    alt=""> </button>
-            <button :disabled="!data.next" @click="getData(data.next)" class="button-group__button"> <img src="../components/image/chevron-right-solid.svg"
-                    alt=""> </button>
+            <button :disabled="!data.previous" @click="getData(data.previous)" class="button-group__button"> <img
+                    src="../components/image/chevron-left-solid.svg" alt=""> </button>
+            <button :disabled="!data.next" @click="getData(data.next)" class="button-group__button"> <img
+                    src="../components/image/chevron-right-solid.svg" alt=""> </button>
         </div>
         <div class="poke-list">
             <div class="poke-list__separator-container">
@@ -30,6 +31,7 @@ getData('https://pokeapi.co/api/v2/pokemon?offset=0&limit=80')
 
 <style lang="scss">
 @import '../assets/_colors.scss';
+
 .colocador {
     position: relative;
 }
@@ -53,7 +55,7 @@ getData('https://pokeapi.co/api/v2/pokemon?offset=0&limit=80')
         border-radius: 10px;
     }
 
-    &::-webkit-scrollbar{
+    &::-webkit-scrollbar {
         background-color: $colorB;
         border-radius: 5px;
     }
@@ -62,6 +64,7 @@ getData('https://pokeapi.co/api/v2/pokemon?offset=0&limit=80')
 //Función que crea un @media para cada 96px que salte en resolución
 @for $i from 1 through 10 {
     $res: 96px * $i;
+
     @media screen and (min-width: $res) {
         .poke-list {
             &__container {
