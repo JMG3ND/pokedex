@@ -1,15 +1,19 @@
 <template>
-	<div class="justify-content">
+	<div v-if="store.dataPokemons" class="justify-content">
 		<TopNavegationBar />
 		<PokedexBox />
 	</div>
+	<LoadDataApp v-else />
 </template>
 
 <script setup>
-import LoadDataApp from './components/LoadDataApp.vue';
+import LoadDataApp from './components/LoadDataApp.vue'
 import PokedexBox from './components/PokedexBox.vue';
 import TopNavegationBar from './components/TopNavegationBar.vue';
+import { useStoreDataPokemon } from './store/storeDataPokemon';
 
+const store = useStoreDataPokemon();
+store.getDataAllPokemon();
 </script>
 
 <style lang="scss">

@@ -1,24 +1,16 @@
 <script setup>
 import PokemonCard from '../components/PokemonCard.vue';
-import { useGetData } from '../composables/getData';
+import { useStoreDataPokemon } from '../store/storeDataPokemon';
 
-const { data, getData } = useGetData();
-
-getData('https://pokeapi.co/api/v2/pokemon?offset=0&limit=80');
+const dataStore = useStoreDataPokemon();
 </script>
 
 <template>
-    <div v-if="data" class="colocador">
-        <div class="button-group">
-            <button :disabled="!data.previous" @click="getData(data.previous)" class="button-group__button"> <img
-                    src="../components/image/chevron-left-solid.svg" alt=""> </button>
-            <button :disabled="!data.next" @click="getData(data.next)" class="button-group__button"> <img
-                    src="../components/image/chevron-right-solid.svg" alt=""> </button>
-        </div>
+    <div v-if="dataStore.dataPokemons" class="colocador">
         <div class="poke-list">
             <div class="poke-list__separator-container">
                 <ul class="poke-list__container">
-                    <li class="poke-list__item" v-for="pokemon in data.results">
+                    <li class="poke-list__item" v-for="pokemon in dataStore.dataPokemons">
                         <PokemonCard :key="pokemon.name" :name="pokemon.name" :urlPokemon="pokemon.url">
                         </PokemonCard>
                     </li>
@@ -69,34 +61,6 @@ getData('https://pokeapi.co/api/v2/pokemon?offset=0&limit=80');
             &__container {
                 grid-template-columns: repeat($i, 1fr);
             }
-        }
-    }
-}
-
-.button-group {
-    padding: 0.5rem;
-    display: flex;
-    justify-content: space-between;
-    position: absolute;
-    top: -50px;
-    right: 10px;
-
-    &__button {
-        margin-left: 20px;
-        cursor: pointer;
-        border: none;
-        width: 40px;
-        height: 40px;
-        border-radius: 100%;
-        background-color: $colorB;
-        transition: background-color 0.5s;
-
-        &:hover {
-            background-color: $colorC;
-        }
-
-        img {
-            width: 30%;
         }
     }
 }

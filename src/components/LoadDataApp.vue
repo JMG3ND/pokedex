@@ -18,5 +18,8 @@ import LoadSpinner from './LoadSpinner.vue';
     right: 0;
     bottom: 0;
     left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>
