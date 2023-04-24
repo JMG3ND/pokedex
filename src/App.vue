@@ -1,14 +1,20 @@
-<script setup>
-import { RouterView } from 'vue-router';
-import TopNavegationBar from './components/TopNavegationBar.vue';
-</script>
-
 <template>
-	<div class="justify-content">
+	<div v-if="store.dataPokemons" class="justify-content">
 		<TopNavegationBar />
-		<RouterView />
+		<PokedexBox />
 	</div>
+	<LoadDataApp v-else />
 </template>
+
+<script setup>
+import LoadDataApp from './components/LoadDataApp.vue'
+import PokedexBox from './components/PokedexBox.vue';
+import TopNavegationBar from './components/TopNavegationBar.vue';
+import { useStoreDataPokemon } from './store/storeDataPokemon';
+
+const store = useStoreDataPokemon();
+store.getDataAllPokemon();
+</script>
 
 <style lang="scss">
 @import './assets/colors.scss';
@@ -17,12 +23,16 @@ import TopNavegationBar from './components/TopNavegationBar.vue';
 	max-width: 1200px;
 	margin: 0 auto;
 }
-*, *::after, *::before {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
-body{
+
+body {
 	background-color: $colorD;
 }
 </style>
