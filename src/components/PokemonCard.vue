@@ -1,26 +1,3 @@
-<script setup>
-import { ref, computed } from 'vue';
-import LoadSpinner from './LoadSpinner.vue';
-import { useGetData } from '../composables/getData';
-
-const props = defineProps(['name', 'urlPokemon'])
-const { data, getData } = useGetData();
-
-getData(props.urlPokemon);
-
-//variable que define si la imagen está cargando
-const loadImage = ref(true);
-const cargando = () => loadImage.value = false
-
-//Mostrar ocultar la card del pokemon
-let showPokemon = ref(false);
-const mostrarPokemon = () => showPokemon.value = true;
-const ocultarPokemon = () => showPokemon.value = false;
-
-const getUrlType = (type) => `../assets/types/${type}.png`
-
-</script>
-
 <template>
     <LoadSpinner v-if="loadImage"></LoadSpinner>
     <template v-if="data">
@@ -80,6 +57,26 @@ const getUrlType = (type) => `../assets/types/${type}.png`
         </div>
     </template>
 </template>
+
+<script setup>
+import { ref, computed } from 'vue';
+import LoadSpinner from './LoadSpinner.vue';
+import { useGetData } from '../composables/getData';
+
+const props = defineProps(['name', 'urlPokemon'])
+const { data, getData } = useGetData();
+
+getData(props.urlPokemon);
+
+//variable que define si la imagen está cargando
+const loadImage = ref(true);
+const cargando = () => loadImage.value = false
+
+//Mostrar ocultar la card del pokemon
+let showPokemon = ref(false);
+const mostrarPokemon = () => showPokemon.value = true;
+const ocultarPokemon = () => showPokemon.value = false;
+</script>
 
 <style lang="scss">
 @import '../assets/colors.scss';
