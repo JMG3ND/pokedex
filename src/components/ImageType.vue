@@ -1,5 +1,5 @@
 <template>
-    <img class="show-pokemon__type" :src="asingType(type)" :alt="`image ${type}`">
+    <img class="image-type" :src="asingType(type)" :alt="`image ${type}`">
 </template>
 
 <script setup>
@@ -51,3 +51,9 @@ const types = [
     { name: 'water', url: water }
 ];
 </script>
+
+<style lang="scss">
+.image-type {
+    width: 100%;
+}
+</style>

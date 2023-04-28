@@ -13,7 +13,9 @@
                         <img class="show-pokemon__image" :src="data.sprites.front_default" :alt="data.name">
                         <div class="show-pokemon__type-group">
                             <template v-for="types in data.types">
-                                <ImageType :type="types.type.name" />
+                                <div class="show-pokemon__image-type-container">
+                                    <ImageType :type="types.type.name" />
+                                </div>
                             </template>
                         </div>
                     </div>
@@ -89,7 +91,7 @@ const ocultarPokemon = () => showPokemon.value = false;
             justify-content: center;
         }
 
-        &__type {
+        &__image-type-container {
             max-width: 100px;
         }
 
@@ -162,7 +164,7 @@ const ocultarPokemon = () => showPokemon.value = false;
             justify-content: center;
         }
 
-        &__type {
+        &__image-type-container {
             max-width: 100px;
         }
 
