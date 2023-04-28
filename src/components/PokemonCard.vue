@@ -13,42 +13,7 @@
                         <img class="show-pokemon__image" :src="data.sprites.front_default" :alt="data.name">
                         <div class="show-pokemon__type-group">
                             <template v-for="types in data.types">
-                                <img class="show-pokemon__type" v-if="types.type.name === 'bug'"
-                                    src="../assets/types/bug.png" :alt="types.type.name">
-                                <img class="show-pokemon__type" v-if="types.type.name === 'dark'"
-                                    src="../assets/types/dark.png" :alt="types.type.name">
-                                <img class="show-pokemon__type" v-if="types.type.name === 'dragon'"
-                                    src="../assets/types/dragon.png" :alt="types.type.name">
-                                <img class="show-pokemon__type" v-if="types.type.name === 'electric'"
-                                    src="../assets/types/electric.png" :alt="types.type.name">
-                                <img class="show-pokemon__type" v-if="types.type.name === 'fairy'"
-                                    src="../assets/types/fairy.png" :alt="types.type.name">
-                                <img class="show-pokemon__type" v-if="types.type.name === 'fighting'"
-                                    src="../assets/types/fighting.png" :alt="types.type.name">
-                                <img class="show-pokemon__type" v-if="types.type.name === 'fire'"
-                                    src="../assets/types/fire.png" :alt="types.type.name">
-                                <img class="show-pokemon__type" v-if="types.type.name === 'flying'"
-                                    src="../assets/types/flying.png" :alt="types.type.name">
-                                <img class="show-pokemon__type" v-if="types.type.name === 'ghost'"
-                                    src="../assets/types/ghost.png" :alt="types.type.name">
-                                <img class="show-pokemon__type" v-if="types.type.name === 'grass'"
-                                    src="../assets/types/grass.png" :alt="types.type.name">
-                                <img class="show-pokemon__type" v-if="types.type.name === 'ground'"
-                                    src="../assets/types/ground.png" :alt="types.type.name">
-                                <img class="show-pokemon__type" v-if="types.type.name === 'ice'"
-                                    src="../assets/types/ice.png" :alt="types.type.name">
-                                <img class="show-pokemon__type" v-if="types.type.name === 'water'"
-                                    src="../assets/types/water.png" :alt="types.type.name">
-                                <img class="show-pokemon__type" v-if="types.type.name === 'steel'"
-                                    src="../assets/types/steel.png" :alt="types.type.name">
-                                <img class="show-pokemon__type" v-if="types.type.name === 'psychic'"
-                                    src="../assets/types/psychic.png" :alt="types.type.name">
-                                <img class="show-pokemon__type" v-if="types.type.name === 'normal'"
-                                    src="../assets/types/normal.png" :alt="types.type.name">
-                                <img class="show-pokemon__type" v-if="types.type.name === 'rock'"
-                                    src="../assets/types/rock.png" :alt="types.type.name">
-                                <img class="show-pokemon__type" v-if="types.type.name === 'poison'"
-                                    src="../assets/types/poison.png" :alt="types.type.name">
+                                <ImageType :type="types.type.name" />
                             </template>
                         </div>
                     </div>
@@ -59,7 +24,8 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import ImageType from './ImageType.vue';
+import { ref } from 'vue';
 import LoadSpinner from './LoadSpinner.vue';
 import { useGetData } from '../composables/getData';
 
