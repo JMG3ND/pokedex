@@ -14,7 +14,8 @@
                         <div class="show-pokemon__type-group">
                             <template v-for="types in data.types">
                                 <div class="show-pokemon__image-type-container">
-                                    <ImageType :type="types.type.name" />
+                                    <img class="show-pokemon__image-type" :src="`/types/${types.type.name}.png`"
+                                        :alt="`image ${types.type.name}`">
                                 </div>
                             </template>
                         </div>
@@ -26,7 +27,6 @@
 </template>
 
 <script setup>
-import ImageType from './ImageType.vue';
 import { ref } from 'vue';
 import LoadSpinner from './LoadSpinner.vue';
 import { useGetData } from '../composables/getData';
@@ -95,6 +95,10 @@ const ocultarPokemon = () => showPokemon.value = false;
             max-width: 100px;
         }
 
+        &__image-type {
+            width: 100%;
+        }
+
         &--show {
             display: flex;
         }
@@ -133,6 +137,8 @@ const ocultarPokemon = () => showPokemon.value = false;
             display: flex;
             height: 90%;
         }
+
+
     }
 }
 
@@ -166,6 +172,10 @@ const ocultarPokemon = () => showPokemon.value = false;
 
         &__image-type-container {
             max-width: 100px;
+        }
+
+        &__image-type {
+            width: 100%;
         }
 
         &--show {

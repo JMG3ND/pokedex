@@ -1,5 +1,5 @@
 <template>
-    <img class="image-type" :src="asingType(type)" :alt="`image ${type}`">
+    <img class="image-type" :src="`/types/${type}.png`" :alt="`image ${type}`">
 </template>
 
 <script setup>
